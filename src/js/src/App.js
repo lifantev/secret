@@ -15,7 +15,7 @@ const getAntIcon = () => <Icon type="loading" style={{fontSize:24}}/>;
 class App extends Component {
 
   state = {
-    sudents: [],
+    students: [],
     isFetching: false
   }
 
@@ -25,7 +25,7 @@ class App extends Component {
 
   fetchStudents = () => {
     this.setState({
-      isFetching = true
+      isFetching: true
     });
 
     getAllStudents()
@@ -34,7 +34,7 @@ class App extends Component {
           console.log(students);
           this.setState({
             students,
-            isFetching = false
+            isFetching: false
           });
         })) 
   }
@@ -56,7 +56,7 @@ class App extends Component {
           key: 'avatar',
           render: (text, student) => (
             <Avatar size='large'>
-              {'${student.firstName.charAt(0).toUpperCase}${student.lastName.charAt(0).toUpperCase}'}
+              {`${student.firstName.charAt(0).toUpperCase}${student.lastName.charAt(0).toUpperCase}`}
             </Avatar>
           )
         },
