@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("student")
+@RequestMapping("/students")
 public class StudentController {
 
     private final StudentService studentService;
@@ -16,7 +16,7 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @GetMapping()
+    @GetMapping
     public List<Student> getAllStudents() {
         return studentService.getAllStudents();
     }

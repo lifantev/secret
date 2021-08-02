@@ -7,7 +7,13 @@ import java.util.List;
 @Service
 public class StudentService {
 
+    private final StudentDataAccessService studentDataAccessService;
+
+    public StudentService(StudentDataAccessService studentDataAccessService) {
+        this.studentDataAccessService = studentDataAccessService;
+    }
+
     public List<Student> getAllStudents() {
-        return List.of();
+        return studentDataAccessService.selectAllStudents();
     }
 }

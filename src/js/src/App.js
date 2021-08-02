@@ -6,11 +6,12 @@ import { Component } from 'react';
 import {
   Table,
   Avatar,
-  Spin,
-  Icon
+  Spin
 } from 'antd';
 
-const getAntIcon = () => <Icon type="loading" style={{fontSize:24}}/>;
+import { LoadingOutlined } from '@ant-design/icons';
+
+const getAntIcon = () => <LoadingOutlined style={{fontSize:24}}/>;
 
 class App extends Component {
 
@@ -56,7 +57,7 @@ class App extends Component {
           key: 'avatar',
           render: (text, student) => (
             <Avatar size='large'>
-              {`${student.firstName.charAt(0).toUpperCase}${student.lastName.charAt(0).toUpperCase}`}
+              {student.firstName.charAt(0).toUpperCase()}{student.lastName.charAt(0).toUpperCase()}
             </Avatar>
           )
         },
