@@ -5,7 +5,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.UUID;
 
 @Repository
@@ -21,7 +20,17 @@ public class StudentDataAccessService {
 
         String sql = "SELECT student_id, first_name, last_name, email, gender FROM student";
 
-        return jdbcTemplate.query(sql, mapStudentFromDp());
+        return jdbcTemplate.query(sql, mapStudentFromDb());
+    }
+
+    boolean isEmailTaken(String email) {
+        String sql = "SELECT EXISTS (SELECT 1 FROM student WHERE email = ?)";
+
+        return jdbcTemplate.queryForObject(
+                sql,
+                new Object[]{email},
+                ((resultSet, i) -> resultSet.getBoolean(1))
+        );
     }
 
     int insertStudent(UUID studentId, Student student) {
@@ -37,7 +46,7 @@ public class StudentDataAccessService {
                 student.getGender().name().toUpperCase());
     }
 
-    private RowMapper<Student> mapStudentFromDp() {
+    private RowMapper<Student> mapStudentFromDb() {
         return (resultSet, i) -> {
             String studentIdStr = resultSet.getString("student_id");
             UUID studentId = UUID.fromString(studentIdStr);

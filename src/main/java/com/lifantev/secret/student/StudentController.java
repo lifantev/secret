@@ -2,6 +2,7 @@ package com.lifantev.secret.student;
 
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -20,7 +21,7 @@ public class StudentController {
     }
 
     @PostMapping
-    public void addNewStudent(@RequestBody Student student) {
+    public void addNewStudent(@Valid @RequestBody Student student) {
         studentService.addNewStudent(student);
     }
 }

@@ -1,5 +1,7 @@
 package com.lifantev.secret.student;
 
+import com.lifantev.secret.exception.ApiRequestException;
+import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,15 +18,20 @@ public class StudentService {
     }
 
     List<Student> getAllStudents() {
-        throw new IllegalStateException();
         // TODO: delete exception throwing
-        //return studentDataAccessService.selectAllStudents();
+        return studentDataAccessService.selectAllStudents();
     }
 
     void addNewStudent(UUID studentId, Student student) {
         UUID newStudentId = Optional.ofNullable(studentId).orElse(UUID.randomUUID());
 
-        // TODO: Verify email
+        if (!EmailValidator.getInstance().isValid(student.getEmail())) {
+            throw new ApiRequestException(student.getEmail() + " is not valid");
+        }
+
+        if (studentDataAccessService.isEmailTaken(student.getEmail())) {
+            throw new ApiRequestException(student.getEmail() + " already exists");
+        }
 
         studentDataAccessService.insertStudent(newStudentId, student);
     }
