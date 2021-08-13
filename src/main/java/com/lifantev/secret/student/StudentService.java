@@ -18,7 +18,6 @@ public class StudentService {
     }
 
     List<Student> getAllStudents() {
-        // TODO: delete exception throwing
         return studentDataAccessService.selectAllStudents();
     }
 
@@ -38,5 +37,9 @@ public class StudentService {
 
     void addNewStudent(Student student) {
         addNewStudent(null, student);
+    }
+
+    List<StudentCourse> getAllCoursesForStudent(UUID studentId) {
+        return studentDataAccessService.selectAllStudentCourses(studentId);
     }
 }
